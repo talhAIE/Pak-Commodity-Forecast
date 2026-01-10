@@ -206,18 +206,6 @@ The dashboard will open at `http://localhost:8501`
    - US consumer confidence impact
    - Correlation analysis
 
-### Deploying Online
-
-Deploy your dashboard to Streamlit Community Cloud (free) so friends can access it:
-
-**Quick Steps:**
-1. Push code to GitHub (public repository required for free tier)
-2. Go to https://share.streamlit.io
-3. Sign in with GitHub
-4. Deploy app with main file: `dashboard/app.py`
-
-**Detailed Instructions:** See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) or [QUICK_DEPLOY.md](QUICK_DEPLOY.md)
-
 ## 📝 Evaluation Metrics
 
 - **MAPE** (Mean Absolute Percentage Error) - Primary metric (target: <25%)
@@ -248,7 +236,6 @@ Deploy your dashboard to Streamlit Community Cloud (free) so friends can access 
 - ✅ Model Persistence - **Complete**
 - ✅ Web Dashboard (Streamlit) - **Complete**
 - ✅ Forecast Generation Script - **Complete**
-- ✅ Deployment Setup - **Complete**
 - ⏭️ RAG Chatbot Integration - **Pending**
 
 ## 📖 Documentation
@@ -257,7 +244,6 @@ Deploy your dashboard to Streamlit Community Cloud (free) so friends can access 
 - **Model Recommendations**: See `Documentation/FORECASTING_FORMAT_MODEL_RECOMMENDATIONS.md`
 - **Merge Strategy**: See `Documentation/MERGE_STRATEGY_SUMMARY.md`
 - **Dashboard Guide**: See `dashboard/README.md`
-- **Deployment**: See `DEPLOYMENT_GUIDE.md`
 
 ## 🔧 Key Technologies
 
@@ -281,4 +267,4 @@ This is a final year project. For questions or suggestions, please open an issue
 
 ---
 
-**Note**: The dashboard requires trained models and data files to be present in the repository. Ensure all files from the `models/` and root directory (CSV files) are included when deploying.
+**Note**: The dashboard requires trained models and data files to be present. Ensure all files from the `models/` and root directory (CSV files) are available when running locally.
