@@ -1,5 +1,0 @@
-# This file is for Streamlit Community Cloud deployment
-# It lists system packages that need to be installed
-
-# No system packages needed for this project
-# All dependencies are Python packages listed in requirements.txt
