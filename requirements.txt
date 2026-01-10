@@ -1,0 +1,35 @@
+# Core Data Science Libraries
+pandas>=1.5.0
+numpy>=1.23.0
+
+# Machine Learning Models
+lightgbm>=3.3.0
+xgboost>=1.7.0
+prophet>=1.1.0
+statsmodels>=0.13.0
+scikit-learn>=1.1.0
+pmdarima>=2.0.0
+
+# Visualization
+matplotlib>=3.6.0
+seaborn>=0.12.0
+plotly>=5.11.0
+
+# Web Dashboard (choose one)
+streamlit>=1.25.0
+# flask>=2.2.0  # Alternative option
+# fastapi>=0.95.0  # Alternative option
+
+# RAG Chatbot (when implemented)
+# langchain>=0.0.200
+# faiss-cpu>=1.7.4  # or faiss-gpu for GPU support
+# openai>=1.0.0  # or use other LLM providers
+
+# Utilities
+openpyxl>=3.0.10  # For Excel file reading
+joblib>=1.2.0  # For model persistence
+python-dateutil>=2.8.2
+
+# Jupyter Notebook
+jupyter>=1.0.0
+ipykernel>=6.20.0

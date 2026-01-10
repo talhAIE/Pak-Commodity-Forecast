@@ -1,0 +1,27 @@
+{
+    "model_name": "LightGBM",
+    "model_type": "LightGBM",
+    "training_date": "2026-01-11 00:54:53",
+    "test_set_metrics": {
+        "MAE": 45447690.70489704,
+        "RMSE": 73066389.0843689,
+        "MAPE": 36.129473290140915,
+        "R2": 0.6557802633590692
+    },
+    "validation_set_metrics": {
+        "MAE": 21784069.823192798,
+        "RMSE": 45290186.51066113,
+        "MAPE": 16.742610004044515,
+        "R2": 0.8425597027149944
+    },
+    "commodities": [
+        "Rice",
+        "Cotton Yarn",
+        "Copper"
+    ],
+    "forecast_horizon": 6,
+    "data_range": {
+        "start": "2010-01-01 00:00:00",
+        "end": "2025-08-01 00:00:00"
+    }
+}
