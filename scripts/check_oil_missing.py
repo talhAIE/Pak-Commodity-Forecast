@@ -1,10 +1,3 @@
-"""
-Check Oil Data Missing Months Script
-
-Note: This script should be run from the project root directory.
-Paths are relative to project root.
-"""
-
 import pandas as pd
 import os
 

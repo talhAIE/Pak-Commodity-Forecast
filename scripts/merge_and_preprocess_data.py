@@ -19,17 +19,15 @@ print("=" * 80)
 print("DATA MERGING AND PREPROCESSING")
 print("=" * 80)
 
-# =============================================================================
-# STEP 1: CREATE MASTER DATE INDEX (2010-01-01 to 2025-08-01, monthly)
-# =============================================================================
+# CREATE MASTER DATE INDEX (2010-01-01 to 2025-08-01, monthly)
 print("\n1. Creating master date index...")
 master_dates = pd.date_range(start='2010-01-01', end='2025-08-01', freq='MS')
 print(f"   Created {len(master_dates)} monthly dates")
 print(f"   From {master_dates[0]} to {master_dates[-1]}")
 
-# =============================================================================
-# STEP 2: LOAD AND PROCESS EXPORT DATA
-# =============================================================================
+
+# LOAD AND PROCESS EXPORT DATA
+
 print("\n2. Loading export data files...")
 
 def load_export_data(filepath, commodity_name, hs_code):
@@ -49,7 +47,7 @@ def load_export_data(filepath, commodity_name, hs_code):
     })
     
     # Ensure Export_Value_USD is not negative
-    export_df['Export_Value_USD'] = export_df['Export_Value_USD'].clip(lower=0)
+    export_df['Export_Value_USD'] = export_df['Export_Value_USD'].clip(lower=0) #set any negative value to 0
     export_df['Weight_kg'] = export_df['Weight_kg'].clip(lower=0)
     
     return export_df
@@ -67,9 +65,8 @@ print(f"   Copper: {len(copper)} rows")
 exports = pd.concat([rice, cotton, copper], ignore_index=True)
 print(f"   Total export records: {len(exports)}")
 
-# =============================================================================
-# STEP 3: HANDLE MISSING MONTHS FOR EXPORTS (Fill with 0 = No Trade)
-# =============================================================================
+
+# HANDLE MISSING MONTHS FOR EXPORTS (Fill with 0 = No Trade)
 print("\n3. Handling missing months for exports...")
 
 # Create complete date-commodity combinations
@@ -102,9 +99,9 @@ exports_complete['Weight_kg'] = exports_complete['Weight_kg'].fillna(0)
 print(f"   Complete export data: {len(exports_complete)} rows (should be {len(master_dates) * 3})")
 print(f"   Missing months filled with 0 (no trade): {(exports_complete['Export_Value_USD'] == 0).sum()} rows")
 
-# =============================================================================
-# STEP 4: LOAD AND PROCESS EXTERNAL DATA SOURCES
-# =============================================================================
+
+# LOAD AND PROCESS EXTERNAL DATA SOURCES
+
 print("\n4. Loading external data sources...")
 
 # USD/PKR Exchange Rate
@@ -131,9 +128,9 @@ confidence = confidence.rename(columns={'US_Consumer_Confidence_Index': 'US_Conf
 confidence = confidence[['Date', 'US_Confidence']]
 print(f"   US Confidence: {len(confidence)} rows")
 
-# =============================================================================
-# STEP 5: CREATE COMPLETE EXTERNAL DATA FOR ALL DATES
-# =============================================================================
+
+# CREATE COMPLETE EXTERNAL DATA FOR ALL DATES
+
 print("\n5. Creating complete external data timeline...")
 
 # Create base dataframe with all dates
@@ -146,9 +143,9 @@ external_data = external_data.merge(confidence, on='Date', how='left')
 
 print(f"   External data rows: {len(external_data)}")
 
-# =============================================================================
-# STEP 6: HANDLE MISSING VALUES IN EXTERNAL DATA
-# =============================================================================
+
+#  HANDLE MISSING VALUES IN EXTERNAL DATA
+
 print("\n6. Handling missing values in external data...")
 
 print(f"   Missing values before imputation:")
@@ -157,10 +154,10 @@ print(f"     Oil_Price: {external_data['Oil_Price'].isnull().sum()}")
 print(f"     US_Confidence: {external_data['US_Confidence'].isnull().sum()}")
 
 # USD/PKR and US_Confidence should have no missing values, but handle if any
-external_data['USD_PKR'] = external_data['USD_PKR'].ffill().bfill()
+external_data['USD_PKR'] = external_data['USD_PKR'].ffill().bfill() #forward fill and backward fill to handle missing values
 external_data['US_Confidence'] = external_data['US_Confidence'].ffill().bfill()
 
-# Oil Price: Use linear interpolation (appropriate for continuous price data)
+# Oil Price: Use linear interpolation (average of continous price data)
 external_data['Oil_Price'] = external_data['Oil_Price'].interpolate(method='linear')
 
 # If interpolation fails at edges, use forward/backward fill
@@ -171,9 +168,9 @@ print(f"     USD_PKR: {external_data['USD_PKR'].isnull().sum()}")
 print(f"     Oil_Price: {external_data['Oil_Price'].isnull().sum()}")
 print(f"     US_Confidence: {external_data['US_Confidence'].isnull().sum()}")
 
-# =============================================================================
-# STEP 7: MERGE EXPORTS WITH EXTERNAL DATA
-# =============================================================================
+
+# MERGE EXPORTS WITH EXTERNAL DATA
+
 print("\n7. Merging exports with external data...")
 
 # Merge exports with external data
@@ -182,9 +179,9 @@ final_dataset = exports_complete.merge(external_data, on='Date', how='left')
 print(f"   Final dataset rows: {len(final_dataset)}")
 print(f"   Expected rows: {len(master_dates) * 3}")
 
-# =============================================================================
-# STEP 8: DATA VALIDATION AND CLEANUP
-# =============================================================================
+
+# DATA VALIDATION AND CLEANUP
+
 print("\n8. Validating merged dataset...")
 
 # Sort by Date and Commodity
@@ -215,12 +212,12 @@ else:
 print("\n9. Data type summary:")
 print(final_dataset.dtypes)
 
-# =============================================================================
-# STEP 9: EXPORT CLEAN DATASET
-# =============================================================================
+
+# EXPORT CLEAN DATASET
+
 print("\n10. Exporting clean dataset...")
 
-# Export to CSV (save to project root)
+# Export to CSV 
 output_file = os.path.join(PROJECT_ROOT, 'merged_export_dataset_2010_2025.csv')
 final_dataset.to_csv(output_file, index=False)
 print(f"   [OK] Saved to: {output_file}")
@@ -245,9 +242,9 @@ wide_output_file = os.path.join(PROJECT_ROOT, 'merged_export_dataset_wide_2010_2
 wide_dataset.to_csv(wide_output_file, index=False)
 print(f"   [OK] Saved to: {wide_output_file}")
 
-# =============================================================================
-# STEP 10: SUMMARY STATISTICS
-# =============================================================================
+
+# SUMMARY STATISTICS
+
 print("\n" + "=" * 80)
 print("DATASET SUMMARY")
 print("=" * 80)
